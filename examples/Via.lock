@@ -1,0 +1,19 @@
+# Via.lock — resolved git dependencies (pins tags to exact commits).
+# Generated/refreshed by `via update`; committed; the source of build reproducibility.
+version = 1
+
+[[dependency]]
+name   = "unity"
+source = "git"
+url    = "https://github.com/ThrowTheSwitch/Unity"
+tag    = "v2.6.0"
+rev    = "860062d51b2e8a75d150337b63ca2a472840d13c"
+
+# STM32Cube L4 SDK umbrella. Its submodules (HAL, CMSIS device/core, …) are
+# pinned by this commit; fetched with submodules = true.
+[[dependency]]
+name   = "stm32cube-l4"
+source = "git"
+url    = "https://github.com/STMicroelectronics/STM32CubeL4"
+tag    = "v1.18.2"
+rev    = "28bac46b8bae4e74951f6decc48a30984ad5e621"

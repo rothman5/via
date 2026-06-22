@@ -1,0 +1,48 @@
+[package]
+name        = "blink-stm32"
+version     = "0.1.0"
+description = "STM32L412KB (NUCLEO-L412KB) HAL blink — STM32Cube consumed via git, app-declared"
+
+[package.language]
+c = "c11"
+
+# Firmware platform. The app declares EVERYTHING the build needs — arch flags,
+# defines, which SDK dirs are on the include path, which SDK files are compiled,
+# the startup, and the linker script. There is no MCU "family" doing this behind
+# the scenes; every path below is visible and resolved from the pinned SDK.
+[platform.fw]
+kind      = "firmware"
+toolchain = "arm-gnu"
+defines   = ["STM32L412xx", "USE_HAL_DRIVER"]
+cflags    = ["-mcpu=cortex-m4", "-mthumb", "-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"]
+ldflags   = ["-mcpu=cortex-m4", "-mthumb", "-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"]
+linker-script = { dep = "stm32cube-l4", path = "Projects/NUCLEO-L412KB/Templates/STM32CubeIDE/STM32L412KBTX_FLASH.ld" }
+
+[platform.fw.dependencies.stm32cube-l4]
+git        = "https://github.com/STMicroelectronics/STM32CubeL4"
+tag        = "v1.18.2"
+submodules = true
+# Include dirs (-I). Templates/Inc ships ready main.h + stm32l4xx_hal_conf.h +
+# stm32l4xx_it.h, so nothing is generated or renamed.
+includes = [
+  "Drivers/CMSIS/Core/Include",
+  "Drivers/CMSIS/Device/ST/STM32L4xx/Include",
+  "Drivers/STM32L4xx_HAL_Driver/Inc",
+  "Projects/NUCLEO-L412KB/Templates/Inc",
+]
+# Compiled sources: explicit files + globs; a "!" entry excludes (gitignore-style).
+# The startup .s is just another source. The HAL glob skips the *_template.c
+# alternates and never touches the LL drivers.
+sources = [
+  "Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/startup_stm32l412xx.s",
+  "Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/system_stm32l4xx.c",
+  "Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_hal*.c",
+  "!Drivers/STM32L4xx_HAL_Driver/Src/*_template.c",
+  "Projects/NUCLEO-L412KB/Templates/Src/stm32l4xx_it.c",
+  "Projects/NUCLEO-L412KB/Templates/Src/stm32l4xx_hal_msp.c",
+]
+
+[[bin]]
+name     = "blink-stm32"
+src      = ["src/main.c"]
+platform = "fw"

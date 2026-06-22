@@ -1,0 +1,20 @@
+[book]
+title = "Via"
+description = "A reusable C/C++ build framework for host and embedded development (Nix + CMake)."
+authors = ["Via contributors"]
+language = "en"
+src = "."
+
+[output.html]
+default-theme = "coal"
+preferred-dark-theme = "coal"
+git-repository-url = ""
+edit-url-template = ""
+additional-css = []
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true

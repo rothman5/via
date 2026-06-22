@@ -1,0 +1,11 @@
+[package]
+name    = "greeting"
+version = "0.1.0"
+
+[package.language]
+c = "c11"
+
+# A portable library: consumable by host AND firmware artifacts. Built from
+# source inside each consumer's tree, so it honors that artifact's toolchain/std.
+[lib]
+portable = true

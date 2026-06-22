@@ -1,0 +1,33 @@
+[package]
+name        = "hello-world"
+version     = "0.1.0"
+description = "Host example — path-dep on libs/greeting, git dev-dep on Unity"
+
+[package.language]
+c = "c11"
+
+# Internal library, consumed by source (path dependency).
+[dependencies]
+greeting = { path = "../../libs/greeting" }
+
+# Test-only git dependency: the Unity test framework, pinned in Via.lock.
+# Raw (non-Via) source tree, so it declares how to consume it.
+[dev-dependencies]
+unity = { git = "https://github.com/ThrowTheSwitch/Unity", tag = "v2.6.0", includes = ["src"], sources = ["src/unity.c"] }
+
+[platform.host]
+toolchain = "gcc"
+
+[[bin]]
+name     = "hello-world"
+src      = ["src/main.c"]
+platform = "host"
+
+[[bin]]
+name     = "sim"
+src      = ["src/sim.c"]
+platform = "host"
+
+[[test]]
+name     = "unit"
+platform = "host"

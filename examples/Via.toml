@@ -1,0 +1,7 @@
+# Workspace manifest (the monorepo root). Packages live under the listed members.
+# A Via.toml with [workspace] is the workspace root; one with [package] is a package.
+[workspace]
+members = ["apps/*", "libs/*"]
+
+[workspace.package]
+edition = "2026"
