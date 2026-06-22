@@ -6,6 +6,7 @@ language = "en"
 src = "."
 
 [output.html]
+site-url = "/via/"
 default-theme = "coal"
 preferred-dark-theme = "coal"
 git-repository-url = ""
