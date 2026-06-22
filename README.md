@@ -15,7 +15,6 @@ The framework lives at the repo root; runnable demos live under [`examples/`](ex
 ```sh
 nix build .#hello          # host application
 nix build .#blink          # STM32 firmware (.elf/.bin/.hex)
-nix build .#blink-mspm0    # bare-metal TI MSPM0 firmware
 nix flake check            # build + run host unit tests
 nix develop .#hello        # per-app dev shell (cmake/ninja/clangd/gdb)
 nix run   .#docs           # build the handbook into docs/book/
